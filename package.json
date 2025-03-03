@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "a backend in at sankalpa panda",
+  "keywords": [
+    "javascript",
+    "backend",
+    "chai"
+  ],
+  "homepage": "https://github.com/Sankalpa-01/Backend-Series#readme",
+  "bugs": {
+    "url": "https://github.com/Sankalpa-01/Backend-Series/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sankalpa-01/Backend-Series.git"
+  },
+  "license": "ISC",
+  "author": "Sankalpa Panda",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
