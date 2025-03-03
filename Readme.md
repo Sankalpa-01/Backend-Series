@@ -1,3 +1,3 @@
 # backend series
 
-This is the series of whole backend with javascript.
+This is the series of whole backend development with javascript.
