@@ -3,6 +3,7 @@ import {ApiError} from "../utils/ApiError.js"
 import { User } from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
+import bcrypt from "bcrypt.js"
 
 const registerUser = asyncHandler( async(req, res) => {
     // get user details from frontend(here take it from postman)
@@ -18,7 +19,7 @@ const registerUser = asyncHandler( async(req, res) => {
 
 
     // check if user already exits: username, email
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         $or : [{username}, {email}]
     })
     if(existedUser){
@@ -45,12 +46,13 @@ const registerUser = asyncHandler( async(req, res) => {
 
 
     // create user object - create entry in db
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
         fullName,
         avatar: avatar.url,
         coverImage: coverImage?.url || "",
         email,
-        password,
+        password : hashedPassword,
         username: username.toLowerCase()
     })
 
@@ -68,8 +70,8 @@ const registerUser = asyncHandler( async(req, res) => {
     // check for user creation
     // return response(else return error response)
     return res.status(201).json(
-        new ApiResponse(200, createdUser, "User registered successfully!")
-    )
+        new ApiResponse(201, createdUser, "User registered successfully!")
+    );
 
 } )
 
