@@ -7,16 +7,17 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 const registerUser = asyncHandler( async(req, res) => {
     // get user details from frontend(here take it from postman)
     const {fullName, email, username, password} = req.body
-    console.log("email: ", email);
+    console.log("email: ", email); // for debugging
 
     // validation(sab correct format me hai ya nahi : not empty)
-    // check if user already exits: username, email
     if (
         [fullName, email, username, password].some((field) => field?.trim() === "")
     ){
         throw new ApiError(400, "All field are required!")
     }
 
+
+    // check if user already exits: username, email
     const existedUser = User.findOne({
         $or : [{username}, {email}]
     })
