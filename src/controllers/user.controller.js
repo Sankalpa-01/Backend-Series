@@ -3,7 +3,7 @@ import {ApiError} from "../utils/ApiError.js"
 import { User } from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
-import bcrypt from "bcrypt.js"
+import bcrypt from "bcrypt"
 
 const registerUser = asyncHandler( async(req, res) => {
     // get user details from frontend(here take it from postman)
