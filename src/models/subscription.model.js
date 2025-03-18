@@ -1,6 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import  jwt from "jsonwebtoken";
-import bcrypt from "bcrypt"
 
 const subscriptionSchema = new Schema({
     subscriber: {
