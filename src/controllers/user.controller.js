@@ -333,21 +333,24 @@ const updateUserCoverImage = asyncHandler(async(req, res) => {
 })
 
 const getUserChannelProfile = asyncHandler(async(req, res) => {
+    // agar url se laana hai toh params se nikal lo
     const {username} = req.params
 
     if(!username?.trim()){
-        throw new ApiError(400, "username is missing")
+        throw new ApiError(400, "UserName is missing!")
     }
 
     const channel = await User.aggregate([
+        // yeh bas woh table/document nikalne ke liye
         {
             $match: {
                 username: username?.toLowerCase()
             }
         },
+        // yeh join ke related hai
         {
             $lookup: {
-                from: "subscriptions",
+                from: "subscriptions", // model me saari cheezen smaller letter me hotaa hai aur sab plural ho jata hai
                 localField: "_id",
                 foreignField: "channel",
                 as: "subscribers"
@@ -362,6 +365,8 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
             }
         },
         {
+            // upar ke dono field ko join/add karne liye
+            // also additional filed add karega
             $addFields: {
                 subscribersCount: {
                     $size: "$subscribers"
@@ -370,7 +375,7 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
                     $size: "$subscribedTo"
                 },
                 isSubscribed: {
-                    $condition: {
+                    $cond: {
                         if: {$in: [req.user?._id, "$subscribers.subscriber"]},
                         then: true,
                         else: false
