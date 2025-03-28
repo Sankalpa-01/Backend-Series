@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 
 // access aur refresh token ko method me dal do
-const generateAccessAndRefershTokens = async(userId) => 
+const generateAccessAndRefreshTokens = async(userId) => 
 {
     try {
         const user = await User.findById(userId)
